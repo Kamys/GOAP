@@ -30,6 +30,10 @@
     display: none;
 }
 
+.hide {
+    display: none;
+}
+
 .node.collapsed .effects{
     /*min-height: 40px;*/
     max-height: 0;
@@ -228,4 +232,8 @@
     border-radius: 5px;
     border-width: 1px;
     border-color: var(--unity-colors-default-border);
+}
+
+.node.hide-connection .connection {
+    display: none;
 }

@@ -11,6 +11,7 @@ namespace CrashKonijn.Goap.Editor
         public DragDrawer DragDrawer { get; set; }
         public Object SelectedObject { get; set; }
         public bool ShowConfig { get; set; }
+        public bool ShowOnlyGoal { get; set; }
 
         public void UpdateZoom(int zoom)
         {

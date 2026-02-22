@@ -193,6 +193,17 @@ namespace CrashKonijn.Goap.Editor
             this.Node.RemoveFromClassList("path");
             this.Node.RemoveFromClassList("hide-effects");
 
+            if (values.ShowOnlyGoal)
+            {
+                this.Node.AddToClassList("hide-connection");
+                this.ChildWrapper.AddToClassList("hide");
+            }
+            else
+            {
+                this.Node.RemoveFromClassList("hide-connection");
+                this.ChildWrapper.RemoveFromClassList("hide");
+            }
+
             if (!values.ShowConfig)
             {
                 this.Node.AddToClassList("hide-effects");

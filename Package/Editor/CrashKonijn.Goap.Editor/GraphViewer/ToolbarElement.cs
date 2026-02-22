@@ -53,6 +53,19 @@ namespace CrashKonijn.Goap.Editor
             };
 
             this.Add(configToggle);
+            
+            
+            ToolbarButton showOnlyGoalToggle = null;
+            showOnlyGoalToggle = new ToolbarButton(() =>
+            {
+                values.ShowOnlyGoal = !values.ShowOnlyGoal;
+                showOnlyGoalToggle.text = values.ShowOnlyGoal ? "Show only Goal (true)" : "Show only Goal (false)";
+            })
+            {
+                text = "Show only Goal",
+            };
+
+            this.Add(showOnlyGoalToggle);
 
             var spacer = new VisualElement();
             spacer.style.flexGrow = 1; // This makes the spacer flexible, filling available space

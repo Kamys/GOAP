@@ -46,6 +46,7 @@ namespace CrashKonijn.Goap.Editor
 
         public void Update()
         {
+            this.visible = !this.values.ShowOnlyGoal;
             var magicOffset = 10f;
 
             var start = this.condition;
