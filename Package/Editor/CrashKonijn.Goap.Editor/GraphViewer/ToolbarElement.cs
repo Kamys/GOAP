@@ -18,11 +18,11 @@ namespace CrashKonijn.Goap.Editor
 
             this.Add(new ToolbarButton(() =>
             {
-                var elementsWithClass = values.RootElement.Query<VisualElement>(className: "node").ToList();
+                var elementsWithClass = values.RootElement.Query<NodeElement>(className: "node-element").ToList();
 
                 foreach (var element in elementsWithClass)
                 {
-                    element.AddToClassList("collapsed");
+                    element.isCollapsed = true;
                 }
             })
             {
@@ -31,11 +31,11 @@ namespace CrashKonijn.Goap.Editor
 
             this.Add(new ToolbarButton(() =>
             {
-                var elementsWithClass = values.RootElement.Query<VisualElement>(className: "node").ToList();
+                var elementsWithClass = values.RootElement.Query<NodeElement>(className: "node-element").ToList();
 
                 foreach (var element in elementsWithClass)
                 {
-                    element.RemoveFromClassList("collapsed");
+                    element.isCollapsed = false;
                 }
             })
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
@@ -11,12 +12,14 @@ namespace CrashKonijn.Goap.Editor
     public class NodeElement : VisualElement
     {
         public INode GraphNode { get; }
+        public Boolean isCollapsed { get; set; } = true;
 
         public NodeElement(INode graphNode, VisualElement bezierRoot, EditorWindowValues values, INode[] shownList = null)
         {
             var list = shownList ?? Array.Empty<INode>();
 
             this.GraphNode = graphNode;
+            this.AddToClassList("node-element");
             this.AddToClassList("wrapper");
 
             this.NodeWrapper = new VisualElement();
@@ -76,7 +79,7 @@ namespace CrashKonijn.Goap.Editor
 
             this.Node.RegisterCallback<ClickEvent>(evt =>
             {
-                this.Node.ToggleInClassList("collapsed");
+                isCollapsed = !isCollapsed;
 
                 values.Update();
             });
@@ -105,7 +108,9 @@ namespace CrashKonijn.Goap.Editor
                     var connectionNode = new NodeElement(connection, bezierRoot, values, new[] { connection }.Concat(list).ToArray());
                     this.ChildWrapper.Add(connectionNode);
 
-                    bezierRoot.Add(new ConnectionElement(this, conditionElement, connectionNode, values));
+                    var connectionElement = new ConnectionElement(this, conditionElement, connectionNode, values);
+                    ConnectionElements.Add(connectionElement);
+                    bezierRoot.Add(connectionElement);
                 }
             }
 
@@ -193,15 +198,25 @@ namespace CrashKonijn.Goap.Editor
             this.Node.RemoveFromClassList("path");
             this.Node.RemoveFromClassList("hide-effects");
 
-            if (values.ShowOnlyGoal)
+            if (isCollapsed)
             {
-                this.Node.AddToClassList("hide-connection");
                 this.ChildWrapper.AddToClassList("hide");
+                this.Node.AddToClassList("collapsed");
+                foreach (var connectionElement in ConnectionElements)
+                {
+                    connectionElement.AddToClassList("hide");
+                }
+                this.Cost.AddToClassList("hide");
             }
             else
             {
-                this.Node.RemoveFromClassList("hide-connection");
+                this.Node.RemoveFromClassList("collapsed");
                 this.ChildWrapper.RemoveFromClassList("hide");
+                foreach (var connectionElement in ConnectionElements)
+                {
+                    connectionElement.RemoveFromClassList("hide");
+                }
+                this.Cost.RemoveFromClassList("hide");
             }
 
             if (!values.ShowConfig)
@@ -251,5 +266,6 @@ namespace CrashKonijn.Goap.Editor
         public VisualElement Content { get; set; }
         public VisualElement Node { get; set; }
         public VisualElement NodeWrapper { get; private set; }
+        public List<VisualElement> ConnectionElements { get; private set; } = new List<VisualElement>();
     }
 }
