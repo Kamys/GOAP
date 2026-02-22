@@ -160,6 +160,7 @@ namespace CrashKonijn.Goap.Editor
 
             dragRoot.RegisterCallback<WheelEvent>(evt => { this.values.UpdateZoom(2 * (int)-evt.delta.y); });
 
+            graph.RootNodes.Reverse();
             foreach (var rootNode in graph.RootNodes)
             {
                 this.CreateNode(nodeRoot, bezierRoot, rootNode);
