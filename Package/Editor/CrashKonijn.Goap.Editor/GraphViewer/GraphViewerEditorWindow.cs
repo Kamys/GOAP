@@ -123,6 +123,7 @@ namespace CrashKonijn.Goap.Editor
             var dragRoot = new VisualElement();
             dragRoot.AddToClassList("drag-root");
             this.rootVisualElement.Add(dragRoot);
+            this.values.ViewportElement = dragRoot;
 
             var nodeRoot = new VisualElement();
             nodeRoot.AddToClassList("node-root");

@@ -8,6 +8,7 @@ namespace CrashKonijn.Goap.Editor
     {
         public int Zoom { get; set; } = 100;
         public VisualElement RootElement { get; set; }
+        public VisualElement ViewportElement { get; set; }
         public DragDrawer DragDrawer { get; set; }
         public Object SelectedObject { get; set; }
         public bool ShowConfig { get; set; }

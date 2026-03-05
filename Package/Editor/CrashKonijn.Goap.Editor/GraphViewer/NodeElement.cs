@@ -197,6 +197,7 @@ namespace CrashKonijn.Goap.Editor
             this.Node.RemoveFromClassList("disabled");
             this.Node.RemoveFromClassList("path");
             this.Node.RemoveFromClassList("hide-effects");
+            this.Node.RemoveFromClassList("is-current-goal");
 
             if (isCollapsed)
             {
@@ -227,6 +228,7 @@ namespace CrashKonijn.Goap.Editor
             if (provider.CurrentPlan?.Goal == this.GraphNode.Action)
             {
                 this.Node.AddToClassList("path");
+                this.Node.AddToClassList("is-current-goal");
                 return;
             }
 

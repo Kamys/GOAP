@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEditor.UIElements;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace CrashKonijn.Goap.Editor
@@ -26,7 +27,7 @@ namespace CrashKonijn.Goap.Editor
                 }
             })
             {
-                text = "collapse",
+                text = "Close all node",
             });
 
             this.Add(new ToolbarButton(() =>
@@ -39,7 +40,37 @@ namespace CrashKonijn.Goap.Editor
                 }
             })
             {
-                text = "open",
+                text = "Open all node",
+            });
+            
+            
+            this.Add(new ToolbarButton(() =>
+            {
+                var elements = values.RootElement.Query<NodeElement>(className: "node-element").ToList();
+                NodeElement goalNode = null;
+                foreach (var element in elements)
+                {
+                    if (!element.Node.ClassListContains("is-current-goal"))
+                        continue;
+
+                    goalNode = element;
+                    break;
+                }
+
+                if (goalNode == null || values.ViewportElement == null || values.DragDrawer == null)
+                    return;
+
+                values.RootElement.schedule.Execute(() =>
+                {
+                    var viewportCenter = values.ViewportElement.worldBound.center;
+                    var nodeCenter = goalNode.Node.worldBound.center;
+                    var delta = (Vector2) (viewportCenter - nodeCenter);
+
+                    values.DragDrawer.MoveBy(delta);
+                }).ExecuteLater(0);
+            })
+            {
+                text = "Scroll to active node",
             });
 
             ToolbarButton configToggle = null;

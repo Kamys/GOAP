@@ -87,5 +87,14 @@ namespace CrashKonijn.Goap.Editor
 
             this.callback(Vector2.zero);
         }
+
+        public void MoveBy(Vector2 delta)
+        {
+            this.enabled = false;
+            this.delta = Vector2.zero;
+            this.offset += delta;
+
+            this.callback(this.offset);
+        }
     }
 }
